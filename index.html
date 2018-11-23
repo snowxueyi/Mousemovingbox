@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+  <title></title>
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_906415_om1llygda7.css" type="text/css">
+
+  <style>
+    /*客服浮层*/
+  .warp-kefu{
+    background-color:#fff;  height: 143px; width: 45px; position: fixed;user-select: none;
+  }
+  .warp-kefu .el-popover {
+      position: absolute;
+      transform-origin: left center 0px;
+      top: 0px;
+      right: 44px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #ebeef5;
+      padding: 6px;
+      line-height: 1.4;
+      text-align: justify;
+      width: 87px;
+      display: none;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+      font-size: 13px;
+    
+  }
+   .warp-kefu .el-popover  .arrow {
+      width: 7px;
+      height: 7px;
+      border-top: 2px solid #ebeef5;
+      border-right: 2px solid #ebeef5;
+      transform: rotate(45deg);
+      position: absolute;
+      right: -6px;
+      background: #fff;
+      z-index: 666;
+      top: 45%;
+    }
+    .warp-kefu:hover .el-popover {
+      display: block;
+    }
+
+    .warp-kefu  .call {
+      width: 15px;
+      padding: 5px 10px;
+      color: #fff;
+      position: absolute;
+      right: 0;
+      top: 25px;
+      background: #ffb400;
+      cursor: move;
+    }
+
+   .warp-kefu .el-popover  ul {
+      margin-right: 5px;
+    }
+
+   .warp-kefu .el-popover  ul,
+   .warp-kefu .el-popover li {
+      list-style: none;
+      margin: 0;padding: 0;
+    }
+
+    .warp-kefu .el-popover li {
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      content: ".";
+      color: #ffb400;
+      cursor: pointer;
+    }
+
+    .warp-kefu .el-popover li i {
+      margin-right: 5px;
+    }
+
+    .warp-kefu .el-popover li a {
+      color: #333;
+    }
+
+    .warp-kefu .el-popover li a:hover {
+      color: #ffb400
+    }
+    /*客服浮层结束*/
+  </style>
+</head>
+
+<body>
+  <div class="warp-kefu" id="kefu" style="top: 100px; right: 0px;">
+    <div id="el-popover" class="el-popover el-popper">
+      <ul>
+        <li><i class="icon iconfont icon-dot"></i><a>系统咨询</a></li>
+        <li><i class="icon iconfont icon-dot"></i><a>产品咨询</a></li>
+        <li><i class="icon iconfont icon-dot"></i><a>售后咨询</a></li>
+        <li><i class="icon iconfont icon-dot"></i><a>物流咨询</a></li>
+        <li><i class="icon iconfont icon-dot"></i><a>订单咨询</a></li>
+      </ul>
+      <div class="arrow"></div>
+    </div>
+    <div class="call">
+      <span class="icon iconfont icon-kefu"></span>
+      <span>在线咨询</span>
+    </div>
+  </div>
+  <script type="text/javascript">
+    document.addEventListener("mousedown", function (e) {
+      var kefudiv = document.getElementById("kefu")
+      var mouseX, mouseY;
+      var objX, objY;
+
+      function mouseMove(e) {
+        var div = kefudiv;
+        var x = e.clientX;
+        var y = e.clientY;
+        div.style.right = "";
+        div.style.left = parseInt(objX) + parseInt(x) - parseInt(mouseX) + "px";
+        div.style.top = parseInt(objY) + parseInt(y) - parseInt(mouseY) + "px";
+        objX = parseInt(kefudiv.style.left), objY = parseInt(kefudiv.style.top);
+        mouseX = e.clientX, mouseY = e.clientY;
+      }
+
+      function mouseUp(e) {
+        document.removeEventListener('mousemove', mouseMove)
+        document.removeEventListener("mouseup", mouseUp)
+      }
+      objX = parseInt(kefudiv.getBoundingClientRect().left), objY = parseInt(kefudiv.style.top);
+      mouseX = e.clientX, mouseY = e.clientY;
+      document.addEventListener("mousemove", mouseMove, false)
+      document.addEventListener("mouseup", mouseUp, false);
+    }, false)
+  </script>
+</body>
+
+</html>
